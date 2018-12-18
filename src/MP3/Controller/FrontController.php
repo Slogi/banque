@@ -22,18 +22,26 @@ class FrontController
 
     public function execute()
     {
-        $view = new View('Template.php');
-        $authent = new AuthenticationManager($this->request);
-        $router = new Router($this->request);
-        $className = $router->getControllerClassName();
-        $action = $router->getControllerAction();
+        $view = new View('template.php');
+        try{
+            $authent = new AuthenticationManager($this->request);
+            $router = new Router($this->request);
+            $className = $router->getControllerClassName();
+            $action = $router->getControllerAction();
 
-        $controller = new $className($this->request, $this->response, $view, $authent);
-        $controller->execute($action);
+            $controller = new $className($this->request, $this->response, $view, $authent);
+            $controller->execute($action);
 
-        $idAuthen = $this->request->getPostParam('id', '');
-        $mdpAuthen = $this->request->getPostParam('mdp', '');
-        $content ='';
+             $idAuthen = $this->request->getPostParam('id', '');
+            $mdpAuthen = $this->request->getPostParam('mdp', '');
+            $content ='';
+        } catch(Exception $e){
+            $view->setPart('title', 'Erreur');
+            $view->setPart('content', "Une erreur d'exécution s'est produite");
+        }
+        
+
+       
 
         if( $this->request->getSession('login') == ''){
             if ( $idAuthen != '' && $mdpAuthen != ''){
