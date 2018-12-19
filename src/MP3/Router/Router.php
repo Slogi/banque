@@ -33,7 +33,7 @@ class Router
 
         // Regarder quel contrôleur instancier
         switch ($package) {
-            case 'poem':
+            case 'mp3':
                 $this->controllerClassName = 'MP3\Controller\MP3Controller';
                 break;
 

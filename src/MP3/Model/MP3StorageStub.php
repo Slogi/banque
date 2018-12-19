@@ -9,11 +9,13 @@ class MP3StorageStub implements MP3Storage {
 
 	protected $db;
 
-	/* Construit une instance avec 4 poèmes. */
 	public function __construct() {
-		$this->db = array(
-
-		);
+	    $this->db = array();
+	    $listPathMP3 = $this->readMP3();
+		for ($i = 0; $i < sizeof($listPathMP3); $i++ ){
+            $mp3Metadata = id3_get_tag($listPathMP3[$i]);
+            array_push($this->db, new MP3($mp3Metadata['title'], $mp3Metadata['album'], $mp3Metadata['artist'],"test"));
+        }
 	}
 
 	public function read($id) {
@@ -26,5 +28,11 @@ class MP3StorageStub implements MP3Storage {
 	public function readAll() {
 		return $this->db;
 	}
+
+	public function readMP3(){
+        $path    = getcwd().'\src\MP3\Model\sons';
+        return array_diff(scandir($path), array('.', '..'));
+
+    }
 }
 

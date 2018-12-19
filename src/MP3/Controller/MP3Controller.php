@@ -26,8 +26,9 @@ class MP3Controller
 
 
         $menu = array(
-            "Accueil" => '',
-            "Gérer les MP3" => '?o=poem&amp;a=show&amp;id=01'
+            "Accueil" => '?o=mp3&amp;a=makeHomePage',
+            "MP3 numero 1" => '?o=mp3&amp;a=show&amp;id=01',
+            "Gérer les MP3" => '?o=mp3&amp;a=mp3List'
         );
         $this->view->setPart('menu', $menu);
 
@@ -48,6 +49,18 @@ class MP3Controller
 
     public function defaultAction()
     {
+    }
+
+    public function mp3List(){
+        $mp3Storage = new MP3StorageStub();
+        $mp3list = $mp3Storage->readAll();
+        $this->view->setPart('title', 'TEST');
+        $content ="";
+        foreach( $mp3list as $key => $value){
+            $content .= $value->getTitle();
+        }
+        $this->view->setPart('content', $content);
+
     }
 
     public function show() {
