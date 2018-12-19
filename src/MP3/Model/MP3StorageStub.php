@@ -12,8 +12,9 @@ class MP3StorageStub implements MP3Storage {
 	public function __construct() {
 	    $this->db = array();
 	    $listPathMP3 = $this->readMP3();
-		for ($i = 0; $i < sizeof($listPathMP3); $i++ ){
-            $mp3Metadata = id3_get_tag($listPathMP3[$i]);
+        $getID3 = new getID3;
+        for ($i = 0; $i < sizeof($listPathMP3); $i++ ){
+            $mp3Metadata = $getID3->analyze($listPathMP3[$i]);
             array_push($this->db, new MP3($mp3Metadata['title'], $mp3Metadata['album'], $mp3Metadata['artist'],"test"));
         }
 	}
