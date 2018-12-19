@@ -18,6 +18,13 @@ class MP3StorageStub implements MP3Storage {
         }
 	}
 
+	public function readMP3(){
+	    //TODO changer le path pour que le dossier sons soit à la racine
+        $path    = 'sons/';
+        return array_diff(scandir($path), array('.', '..'));
+
+    }
+
 	public function read($id) {
 		if (key_exists($id, $this->db)) {
 			return $this->db[$id];
@@ -28,11 +35,5 @@ class MP3StorageStub implements MP3Storage {
 	public function readAll() {
 		return $this->db;
 	}
-
-	public function readMP3(){
-        $path    = getcwd().'\src\MP3\Model\sons';
-        return array_diff(scandir($path), array('.', '..'));
-
-    }
 }
 

@@ -2,7 +2,9 @@
 
 function autoloader($class)
 {
-    include 'src\\'.$class.'.php';
+    $className = str_replace((DIRECTORY_SEPARATOR == '/' ? '\\' : '/'), DIRECTORY_SEPARATOR, $class);
+    include 'src/'.$className.'.php';
 }
 
 spl_autoload_register('autoloader');
+
