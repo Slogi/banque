@@ -5,18 +5,24 @@ namespace MP3\Model;
 
 class MP3 {
 
+	protected $id;
 	protected $title;
 	protected $album;
 	protected $artist;
 	protected $duree;
 
-	public function __construct($title, $album, $artist, $duree) {
+	public function __construct($id, $title, $album, $artist, $duree) {
+		$this->id = $id;
 		$this->title = $title;
 		$this->album = $album;
 		$this->artist = $artist;
 		$this->duree = $duree;
 		//$this->text = file_get_contents("texts/{$textFile}.frg.html", true);
 	}
+
+    public function getId(){
+        return $this->id;
+    }
 
 	/* Renvoie le titre du poème */
 	public function getTitle() {

@@ -49,34 +49,20 @@ class MP3Controller
     {
     }
 
-    public function mp3List(){
-        $mp3Storage = new MP3StorageStub();
-        $mp3list = $mp3Storage->readAll();
-        $this->view->setPart('title', 'TEST');
-        $content ="";
-        foreach( $mp3list as $key => $value){
-            $content .= $value->getTitle()."\n";
-        }
-        $this->view->setPart('content', $content);
-
-    }
-
     public function show() {
         // tester les en-têtes HTTP avec Response
         $this->response->addHeader('X-Debugging: show me a poem');
 
         $id = $this->request->getGetParam('id');
 
-        $poemStorage = new MP3StorageStub();
-        $poem = $poemStorage->read($id);
+        $mp3Storage = new MP3StorageStub();
+        $mp3 = $mp3Storage->read($id);
 
-        if ($poem !== null) {
+        if ($mp3 !== null) {
             /* Le poème existe, on prépare la page */
-            $image = "images/{$poem->getImage()}";
-            $title = "« {$poem->getTitle()} », par {$poem->getAuthor()}";
-            $content = "<figure>\n<img src=\"$image\" alt=\"{$poem->getAuthor()}\" />\n";
-            $content .= "<figcaption>{$poem->getAuthor()}</figcaption>\n</figure>\n";
-            $content .= "<div class=\"poem\">{$poem->getText()}</div>\n";
+            $title = "« {$mp3->getTitle()} », par {$mp3->getArtist()}";
+
+            $content = "<div class=\"mp3\">{$mp3->getTitle()}, par {$mp3->getArtist()}</div>\n";
 
             $this->view->setPart('title', $title);
             $this->view->setPart('content', $content);
@@ -103,7 +89,7 @@ class MP3Controller
         $this->view->setPart('title', 'TEST');
         $content ="";
         foreach( $mp3list as $key => $value){
-            $content .= $value->getTitle();
+            $content .=  "<a href='?o=mp3&amp;a=show&amp;id=". $value->getId() ."'>".$value->getTitle()."</a>\n";
         }
         $this->view->setPart('content', $content);
     }
