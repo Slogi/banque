@@ -26,9 +26,7 @@ class MP3Controller
 
 
         $menu = array(
-            "Accueil" => '?o=mp3&amp;a=makeHomePage',
-            "MP3 numero 1" => '?o=mp3&amp;a=show&amp;id=01',
-            "Gérer les MP3" => '?o=mp3&amp;a=mp3List'
+            "Accueil" => '?o=mp3&amp;a=makeHomePage'
         );
         $this->view->setPart('menu', $menu);
 
@@ -100,9 +98,13 @@ class MP3Controller
     }
 
     public function makeHomePage() {
-        $title = "Bienvenue !";
-        $content = "Un site sur des poèmes.";
-        $this->view->setPart('title', $title);
+        $mp3Storage = new MP3StorageStub();
+        $mp3list = $mp3Storage->readAll();
+        $this->view->setPart('title', 'TEST');
+        $content ="";
+        foreach( $mp3list as $key => $value){
+            $content .= $value->getTitle();
+        }
         $this->view->setPart('content', $content);
     }
 
