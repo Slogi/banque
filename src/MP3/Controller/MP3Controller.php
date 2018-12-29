@@ -57,7 +57,7 @@ class MP3Controller
         $this->view->setPart('title', 'TEST');
         $content ="";
         foreach( $mp3list as $key => $value){
-            $content .= $value->getTitle();
+            $content .= $value->getTitle()."\n";
         }
         $this->view->setPart('content', $content);
 
