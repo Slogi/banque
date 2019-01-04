@@ -44,6 +44,17 @@ class Request
         $_SESSION = $this->session;
     }
 
+    public function setServer($key, $value){
+        $this->server[$key] = $value;
+    }
+
+    public function getServerParam( $key, $default){
+        if (!isset($this->server[$key])) {
+            return $default;
+        }
+        return $this->server[$key];
+    }
+
     public function getPostParam($key, $default)
     {
         if (!isset($this->post[$key])) {

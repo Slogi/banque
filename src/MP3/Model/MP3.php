@@ -17,7 +17,6 @@ class MP3 {
 		$this->album = $album;
 		$this->artist = $artist;
 		$this->duree = $duree;
-		//$this->text = file_get_contents("texts/{$textFile}.frg.html", true);
 	}
 
     public function getId(){

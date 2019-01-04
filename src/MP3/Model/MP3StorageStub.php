@@ -14,7 +14,7 @@ class MP3StorageStub implements MP3Storage {
 	    $this->db = array();
 	    $listPathMP3 = $this->readMP3();
         $getID3 = new getID3;
-        $cpt = 1;
+        $cpt = 0;
         for ($i = 0; $i < sizeof($listPathMP3); $i++ ){
             $mp3Metadata = $getID3->analyze('sons/'.$listPathMP3[$i]);
             if ( !key_exists("error",$mp3Metadata)){
