@@ -31,6 +31,7 @@ class View
     {
         $title = $this->getPart('title');
         $content = $this->getPart('content');
+        $form = $this->getPart('form');
         $menu = $this->getPart('menu');
 
         ob_start();

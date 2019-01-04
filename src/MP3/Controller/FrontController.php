@@ -32,37 +32,34 @@ class FrontController
             $controller = new $className($this->request, $this->response, $view, $authent);
             $controller->execute($action);
 
-             $idAuthen = $this->request->getPostParam('id', '');
+            $idAuthen = $this->request->getPostParam('id', '');
             $mdpAuthen = $this->request->getPostParam('mdp', '');
             $content ='';
+
+            if( $this->request->getSession('login') == ''){
+                if ( $idAuthen != '' && $mdpAuthen != ''){
+                    if ( !$authent->verifyAuth( $idAuthen, $mdpAuthen) ){
+
+                        $content .="<div>Connexion impossible</div><br/>";
+                        $content .= $authent->getForm();
+
+                    }
+                    else {
+                        $content .="<div>Bonjour ". $this->request->getSession('nom')."</div>";
+                    }
+                }else {
+                    $content .= $authent->getForm();
+                }
+            }
+            else {
+                $content .="<div>Bonjour ". $this->request->getSession('nom')."</div>";
+            }
+            $view->setPart('form', $content);
         } catch(Exception $e){
             $view->setPart('title', 'Erreur');
             $view->setPart('content', "Une erreur d'exécution s'est produite");
         }
         
-
-       
-
-        if( $this->request->getSession('login') == ''){
-            if ( $idAuthen != '' && $mdpAuthen != ''){
-                if ( !$authent->verifyAuth( $idAuthen, $mdpAuthen) ){
-
-                    $content .="<div>Connexion impossible</div><br/>";
-                    $content .= $authent->getForm();
-
-                }
-                else {
-                    $content .="<div>Bonjour ". $this->request->getSession('nom')."</div>";
-                }
-            }else {
-                $content .= $authent->getForm();
-            }
-        }
-        else {
-            $content .="<div>Bonjour ". $this->request->getSession('nom')."</div>";
-        }
-
-        $content .= $view->render();
-        $this->response->send($content);
+        $this->response->send($view->render());
     }
 }

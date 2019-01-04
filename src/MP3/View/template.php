@@ -8,6 +8,7 @@
 </head>
 <body>
 	<nav class="menu">
+        <?=$form; ?>
 		<ul>
 <?php
 	foreach ($menu as $text => $link) {
