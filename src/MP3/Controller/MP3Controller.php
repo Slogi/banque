@@ -27,6 +27,7 @@ class MP3Controller
 
         $menu = array(
             "Accueil" => '?o=mp3&amp;a=makeHomePage'
+            //"Accueil" => ''
         );
         $this->view->setPart('menu', $menu);
 
@@ -47,6 +48,7 @@ class MP3Controller
 
     public function defaultAction()
     {
+
     }
 
     public function show() {
@@ -60,12 +62,36 @@ class MP3Controller
 
         if ($mp3 !== null) {
             /* Le poème existe, on prépare la page */
+           /* $ogTitle = "";
+            $ogType = "music";
+            $ogUrl = "https://dev-21306107.users.info.unicaen.fr/devoir-idc2018/?o=mp3&a=show&id={$mp3->getId()}";
+            $ogImage = "";*/
+
+            $ogTitle = "Page de détail du son {$mp3->getTitle()}";
+            $ogUrl = "https://dev-21306107.users.info.unicaen.fr/devoir-idc2018/?o=mp3&a=show&id={$mp3->getId()}";
             $title = "« {$mp3->getTitle()} », par {$mp3->getArtist()}";
 
-            $content = "<div class=\"mp3\">{$mp3->getTitle()}, par {$mp3->getArtist()}</div>\n";
+            $content = "<div class=\"mp3\" itemscope itemtype=\"https://schema.org/MusicRecording\">";
+            $content .= "<p><span itemprop='name'>{$mp3->getTitle()}</span>, par <span itemprop='byArtist'>{$mp3->getArtist()}</span>.</p>";
+            $content .= "<p>Date : <span itemprop='dateCreated'>{$mp3->getDate()}</span></p>";
+            $content .= "<p>Album : <span itemprop='inAlbum'>{$mp3->getAlbum()}</span></p>";
+            $content .= "<p>Durée : <span itemprop='duration'>{$mp3->getDuree()}</span></p>";
+            $content .= "<p>Type mime : <span  itemprop='encodingFormat'>{$mp3->getMimeType()}</span></p>";
+            $content .= "<p>Format : {$mp3->getDataFormat()}</p>";
+            $content .= "<p>Channel : {$mp3->getChannelMode()}</p>";
+            $content .= "<p>Copyright : <span itemprop='copyrightHolder'>{$mp3->getCopyright()}</span></p>"; //TODO CLASSE COPYRIGHT GRAS
+            $content .= "</div>\n";
 
+
+            //$this->view->setPart('ogTitle', $ogTitle);
+            //$this->view->setPart('ogType', $ogType);
+            //$this->view->setPart('ogUrl', $ogUrl);
+            //$this->view->setPart('ogImage', $ogImage);
             $this->view->setPart('title', $title);
             $this->view->setPart('content', $content);
+            $this->view->setPart('ogTitle', $ogTitle);
+            $this->view->setPart('ogUrl', $ogUrl);
+
 
         } else {
             $this->unknownPoem();
@@ -89,9 +115,18 @@ class MP3Controller
         $this->view->setPart('title', 'TEST');
         $content ="";
         foreach( $mp3list as $key => $value){
-            $content .=  "<a href='?o=mp3&amp;a=show&amp;id=". $value->getId() ."'>".$value->getTitle()."</a>\n";
+            $content .= "<ul>";
+            $content .= "<li>";
+            $content .=  "<a href='?o=mp3&amp;a=show&amp;id=". $value->getId() ."'>".$value->getTitle()."</a>";
+            $content .= "</li>";
+            $content .= "</ul>";
         }
+        $ogTitle = "Page d'accueil";
+        $ogUrl = "https://dev-21306107.users.info.unicaen.fr/devoir-idc2018/?o=mp3&a=makeHomePage";
         $this->view->setPart('content', $content);
+        $this->view->setPart('ogTitle', $ogTitle);
+        $this->view->setPart('ogUrl', $ogUrl);
+
     }
 
 }

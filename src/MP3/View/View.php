@@ -15,6 +15,7 @@ class View
 
     public function setPart($key, $content)
     {
+        //var_dump($content) ;
         $this->parts[$key] = $content;
     }
 
@@ -33,6 +34,8 @@ class View
         $content = $this->getPart('content');
         $form = $this->getPart('form');
         $menu = $this->getPart('menu');
+        $ogTitle = $this->getPart('ogTitle');
+        $ogUrl = $this->getPart('ogUrl');
 
         ob_start();
         include($this->template);

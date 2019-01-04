@@ -50,7 +50,7 @@ class Router
 
         // regarder si une action est demandée dans l'URL
         // si le paramètre 'a' n'existe pas alors l'action sera 'defaultAction'
-        $this->controllerAction = $this->request->getGetParam('a', 'defaultAction');
+        $this->controllerAction = $this->request->getGetParam('a', 'makeHomePage');
     }
 
 }

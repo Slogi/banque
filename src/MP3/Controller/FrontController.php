@@ -59,7 +59,7 @@ class FrontController
             $view->setPart('title', 'Erreur');
             $view->setPart('content', "Une erreur d'exécution s'est produite");
         }
-        
+
         $this->response->send($view->render());
     }
 }
