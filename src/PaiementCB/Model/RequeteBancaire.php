@@ -25,9 +25,11 @@ class RequeteBancaire
 
     public function execute(){
 
+        
         $result=exec($this::PATH_BIN." $this->request");
-        $tableau = explode ("!", "$result");
-
+        //echo($this::PATH_BIN." $this->request");
+        $tableau = explode ("!", $result);
+        //var_dump($tableau);
         $code = $tableau[1];
         $error = $tableau[2];
         $message = $tableau[3];
