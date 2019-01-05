@@ -81,6 +81,11 @@ class MP3Controller
             $content .= "<p>Channel : {$mp3->getChannelMode()}</p>";
             $content .= "<p>Copyright : <span itemprop='copyrightHolder'>{$mp3->getCopyright()}</span></p>"; //TODO CLASSE COPYRIGHT GRAS
             $content .= "</div>\n";
+            $content .= "<form action='?o=paiement&amp;a=requete' method='POST'>";
+            $content .= "<input type='hidden' name='prix' value='500'>";
+            $content .= "<input type='email' id='email' pattern='.+@.+' size='30' required>";
+            $content .= "<input type='submit' value='Acheter'>";
+            $content .= "</form>";
 
 
             //$this->view->setPart('ogTitle', $ogTitle);
