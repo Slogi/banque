@@ -16,13 +16,14 @@ class MP3 {
 	protected $date;
 	protected $mimeType;
 	protected $channelMode;
+	protected $path;
 
 
 
 
 	public function __construct($id, $title, $album, $artist, $duree,
 								$dataFormat, $copyright,
-								$date, $mimeType, $channelMode) {
+								$date, $mimeType, $channelMode, $path) {
 		$this->id = $id;
 		$this->title = $title;
 		$this->album = $album;
@@ -34,12 +35,17 @@ class MP3 {
 		$this->date = $date;
 		$this->mimeType = $mimeType;
 		$this->channelMode = $channelMode;
+		$this->path = $path;
+
 	}
 
 
+	public function getPath()
+	{
+		return $this->path;
+	}
 
-
-    public function getId(){
+	public function getId(){
         return $this->id;
     }
 

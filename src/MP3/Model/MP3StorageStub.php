@@ -24,8 +24,10 @@ class MP3StorageStub implements MP3Storage {
         $date = null;
         $mimeType = null;
         $channelMode = null;
+        $path = "";
 
         for ($i = 0; $i < sizeof($listPathMP3); $i++ ){
+            $path = "sons/$listPathMP3[$i]";
             $mp3Metadata = $getID3->analyze('sons/'.$listPathMP3[$i]);
             if ( !key_exists("error",$mp3Metadata)){
 
@@ -58,15 +60,17 @@ class MP3StorageStub implements MP3Storage {
                 }
                 array_push($this->db,
                     new MP3($cpt, $title, $album, $artist, $duree,
-                        $dataFormat, $copyright, $date, $mimeType, $channelMode
+                        $dataFormat, $copyright, $date, $mimeType, $channelMode,$path
                     )
                 );
                 $cpt++;
             }
         }
         //$mp3MetadataTest = $getID3->analyze('sons/'.$listPathMP3[3]);
-        //var_dump($mp3MetadataTest['comments']['picture']['0']['data']);
-        //var_dump($mp3MetadataTest['id3v2']['comments']['length'][0]);
+        //var_dump($mp3MetadataTest['comments']['picture'][0]['data']);
+        //$monfichier = fopen('/users/21306107/www-dev/devoir-idc2018/test.txt', 'a+');
+        //fputs($monfichier, $mp3MetadataTest['comments']['picture'][0]['data']);
+        //var_dump($mp3MetadataTest);
         //var_dump($mp3MetadataTest['tags']['id3v2']['genre'][0]);
         //var_dump($mp3MetadataTest['audio']['dataformat']);
 	}

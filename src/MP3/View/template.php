@@ -4,11 +4,12 @@
 <head>
 	<title><?php echo $title ?></title>
 	<meta charset="UTF-8" />
-    <meta property="og:title" content='<?php echo $ogTitle; ?>' />
-    <meta property="og:type" content="music" />
-    <meta property="og:url" content="<?php echo $ogUrl; ?>" />
-    <meta property="og:image" content="" />
-	<link rel="stylesheet" href="skin/poems.css" />
+    <?php echo $meta; ?>
+    <link rel="stylesheet" href="skin/poems.css" />
+
+
+
+
 </head>
 <body>
 	<nav class="menu">
@@ -23,7 +24,9 @@
 	</nav>
 	<main>
 		<h1><?php echo $title; ?></h1>
-		<p><?php echo $content; ?></p>
+        <span class="player"><?php echo $player; ?></span>
+
+		<?php echo $content; ?>
 	</main>
 </body>
 </html>

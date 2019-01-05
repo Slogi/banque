@@ -1,20 +1,117 @@
 html {
 	overflow-y: scroll;
 }
-body {
-	max-width: 60em;
-	margin: auto;
-}
 
 figure {
 	float: right;
 	text-align: center;
 }
 
-.menu ul {
-	list-style: none;
-	padding: 0;
-	display: flex;
-	justify-content: space-around;
+.copyright {
+	font-weight:bold;
+	color: red;
 }
+
+.form label {
+	display: block;
+	width: 120px;
+	float: left;
+	font-size:1.2em;
+}
+.menu ul li a {
+	font-size: 1.5em;
+}
+
+main ul li a {
+	font-size: 1.5em;
+}
+
+body {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 300px auto;
+	grid-template-areas:  "header"
+							"main";
+}
+
+.menu {
+	grid-area: header;
+	display: grid;
+	grid-template-columns: 1fr ;
+	grid-template-rows: 1fr 1fr;
+	grid-template-areas:  "identhif"
+	"liens";
+}
+
+.menu form {
+	grid-area: identhif;
+	place-self: center;
+}
+
+.menu ul {
+	grid-area: liens;
+	list-style: none;
+	place-self: center;
+}
+
+main {
+	grid-area: main;
+	display: grid;
+	grid-template-columns: 1fr ;
+	grid-template-rows: 200px 100px auto;
+	grid-template-areas:  "titre"
+							"player"
+							"meta";
+
+}
+
+main h1 {
+	grid-area: titre;
+	place-self: center;
+	font-size:1.6em;
+
+}
+
+main .player {
+	grid-area: player;
+	place-self: center;
+}
+
+main .mp3 {
+	grid-area: meta;
+	place-self: center;
+	font-size:1.2em;
+
+}
+
+@media screen and (min-width: 1100px)
+{
+	body
+	{
+		grid-template-columns: 300px  auto 300px;
+		grid-template-rows: 100px  auto;
+		grid-template-areas:  "header header header"
+		"bodyGauche main bodyDroit";
+	}
+	.menu {
+		grid-area: header;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 100px;
+		grid-template-areas:  "headerGauche liens identhif";
+	}
+
+	main h1 {
+		font-size:3em;
+	}
+
+	main .mp3 {
+		font-size:1.5em;
+	}
+}
+
+
+
+
+
 

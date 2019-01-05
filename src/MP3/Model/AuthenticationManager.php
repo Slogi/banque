@@ -42,10 +42,9 @@ class AuthenticationManager implements AuthentificationAdapterInterface
     {
         $this->request = $request;
 
-        $this->form = "<form name='connexion' action='".$this->request->getServerParam('REQUEST_URI',
-                '?o=mp3&a=makeHomePage')."' method='POST'>";
-        $this->form .= "<label>Identifiant</label><input name='id' type='text' />";
-        $this->form .= "<label>Pwd</label><input name='mdp' type='password' />";
+        $this->form = "<form class='form' name='connexion' action='".$this->request->getServerParam('REQUEST_URI', '?o=mp3&a=makeHomePage')."' method='POST'>";
+        $this->form .= "<label>Identifiant</label><input name='id' type='text' /><br />";
+        $this->form .= "<label>Pwd</label><input name='mdp' type='password' /><br />";
         $this->form .= "<input type='submit' value='valider'>";
         $this->form .= "</form>";
 

@@ -34,8 +34,8 @@ class View
         $content = $this->getPart('content');
         $form = $this->getPart('form');
         $menu = $this->getPart('menu');
-        $ogTitle = $this->getPart('ogTitle');
-        $ogUrl = $this->getPart('ogUrl');
+        $meta = $this->getPart('meta');
+        $player = $this->getPart('player');
 
         ob_start();
         include($this->template);
