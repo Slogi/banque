@@ -13,5 +13,6 @@ interface AuthentificationAdapterInterface
 {
     public function verifyAuth( $login, $mdp );
     public function getForm();
+    public function disconnect();
 
 }

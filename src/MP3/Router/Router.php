@@ -28,18 +28,16 @@ class Router
 
     protected function parseRequest()
     {
-        // un nom de package est-il spécifié dans l'URL ?
         $package = $this->request->getGetParam('o');
 
-        // Regarder quel contrôleur instancier
         switch ($package) {
             case 'mp3':
                 $this->controllerClassName = 'MP3\Controller\MP3Controller';
                 break;
-
+            case 'paiement':
+                $this->controllerClassName = 'PaiementCB\Controller\PaiementController';
+                break;
             default:
-                // idem ici, on peut imaginer un package à utiliser par défaut
-                // j'utilise ArticleController pour l'instant car c'est le seul existant
                 $this->controllerClassName = 'MP3\Controller\MP3Controller';
         }
 

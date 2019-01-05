@@ -42,7 +42,8 @@ class AuthenticationManager implements AuthentificationAdapterInterface
     {
         $this->request = $request;
 
-        $this->form = "<form name='connexion' action='".$this->request->getServerParam('REQUEST_URI', '?o=mp3&a=makeHomePage')."' method='POST'>";
+        $this->form = "<form name='connexion' action='".$this->request->getServerParam('REQUEST_URI',
+                '?o=mp3&a=makeHomePage')."' method='POST'>";
         $this->form .= "<label>Identifiant</label><input name='id' type='text' />";
         $this->form .= "<label>Pwd</label><input name='mdp' type='password' />";
         $this->form .= "<input type='submit' value='valider'>";
@@ -86,8 +87,8 @@ class AuthenticationManager implements AuthentificationAdapterInterface
         return $this->form;
     }
 
-    public function deconnexion(){
-
+    public function disconnect(){
+        session_destroy();
     }
 
 }
