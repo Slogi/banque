@@ -98,7 +98,9 @@ class MP3Controller
         }
     }
 
-    public function connect(){
+    public function logout(){
+        $this->authen->disconnect();
+        header('Location: ?o=mp3&a=makeHomePage');//TODO essayer de se servir de response addHeaders()
 
     }
 
@@ -114,13 +116,13 @@ class MP3Controller
         $mp3list = $mp3Storage->readAll();
         $this->view->setPart('title', 'TEST');
         $content ="";
+        $content .= "<ul>";
         foreach( $mp3list as $key => $value){
-            $content .= "<ul>";
             $content .= "<li>";
             $content .=  "<a href='?o=mp3&amp;a=show&amp;id=". $value->getId() ."'>".$value->getTitle()."</a>";
             $content .= "</li>";
-            $content .= "</ul>";
         }
+        $content .= "</ul>";
         $ogTitle = "Page d'accueil";
         $ogUrl = "https://dev-21306107.users.info.unicaen.fr/devoir-idc2018/?o=mp3&a=makeHomePage";
         $this->view->setPart('content', $content);

@@ -46,6 +46,7 @@ class FrontController
                     }
                     else {
                         $content .="<div>Bonjour ". $this->request->getSession('nom')."</div>";
+                        $content .="<a href='?o=mp3&amp;a=logout'>Deconnexion</a>";
                     }
                 }else {
                     $content .= $authent->getForm();
@@ -53,6 +54,7 @@ class FrontController
             }
             else {
                 $content .="<div>Bonjour ". $this->request->getSession('nom')."</div>";
+                $content .="<a href='?o=mp3&amp;a=logout'>Deconnexion</a>";
             }
             $view->setPart('form', $content);
         } catch(Exception $e){
