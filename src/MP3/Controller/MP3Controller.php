@@ -96,7 +96,7 @@ class MP3Controller
             $formBuy = "<form class='formBuy' action='?o=paiement&amp;a=requete' method='POST'>";
             $formBuy .= "<input type='hidden' name='prix' value='500'>";
             $formBuy .= "<input type='email' id='email' pattern='.+@.+' size='30' required placeholder='Votre addresse e-mail'>";
-            $formBuy .= "<input type='submit' value='Acheter'>";
+            $formBuy .= "<input class='btnBuy' type='submit' value='Acheter'>";
             $formBuy .= "</form>";
 
             // CONNEXION
@@ -105,7 +105,7 @@ class MP3Controller
             $formModif .= "<label>Artiste</label><input type='text'  name='artiste' size='20' value='{$mp3->getArtist()}'/><br />";
             $formModif .= "<label>Album</label><input type='text'  name='album' size='80' value='{$mp3->getAlbum()}'/><br />";
             $formModif .= "<label>Copyright</label><input type='text'  name='copyright' size='20' value='{$mp3->getCopyright()}'/><br />";
-            $formModif .= "<input type='submit' value='Modifier'/>";
+            $formModif .= "<input class='btnModif' type='submit' value='Modifier'/>";
             // CONNEXION
 
             $this->view->setPart('title', $title);
@@ -131,7 +131,7 @@ class MP3Controller
 
     public function unknownPoem() {
         $title = "Poème inconnu ou non trouvé";
-        $content = "Choisir un poème dans la liste.";
+        $content = "<div class='mp3'>Choisir un poème dans la liste.</div>";
         $this->view->setPart('title', $title);
         $this->view->setPart('content', $content);
     }
@@ -144,13 +144,13 @@ class MP3Controller
         $content .= "<ul>";
         foreach( $mp3list as $key => $value){
             $content .= "<li>";
-            $content .=  "<a href='?o=mp3&amp;a=show&amp;id=". $value->getId() ."'>".$value->getTitle()."  </a>";
+            $content .=  "<div style='overflow: hidden; padding-right: .5em;'><a href='?o=mp3&amp;a=show&amp;id=". $value->getId() ."'>".$value->getTitle()."  </a></div>";
             // CONNEXION
             $content .= "<form action='?o=mp3&amp;a=supprimer&id={$value->getId()}' method='POST'>";
-            $content .= "<input type='submit' id='suppr{$value->getId()}' name='suppr' value='Supprimer'>";
+            $content .= "<input class='btnSuppr' type='submit' id='suppr{$value->getId()}' name='suppr' value='Supprimer'>";
             $content .= "</form>";
             // CONNEXION
-            $content .= "</li>";
+            $content .= "</li></br>";
         }
         $content .= "</ul>";
         $this->view->setPart('title', 'Liste des sons mp3');

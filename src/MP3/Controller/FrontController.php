@@ -40,21 +40,27 @@ class FrontController
                 if ( $idAuthen != '' && $mdpAuthen != ''){
                     if ( !$authent->verifyAuth( $idAuthen, $mdpAuthen) ){
 
+                        $content .= "<div class='formId'>";
                         $content .="<div>Connexion impossible</div><br/>";
                         $content .= $authent->getForm();
+                        $content .= "</div>";
 
                     }
                     else {
+                        $content .= "<div class='formId'>";
                         $content .="<div>Bonjour ". $this->request->getSession('nom')."</div>";
                         $content .="<a href='?o=mp3&amp;a=logout'>Deconnexion</a>";
+                        $content .= "</div>";
                     }
                 }else {
                     $content .= $authent->getForm();
                 }
             }
             else {
+                $content .= "<div class='formId'>";
                 $content .="<div>Bonjour ". $this->request->getSession('nom')."</div>";
                 $content .="<a href='?o=mp3&amp;a=logout'>Deconnexion</a>";
+                $content .= "</div>";
             }
             $view->setPart('form', $content);
         } catch(Exception $e){
