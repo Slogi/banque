@@ -36,6 +36,9 @@ class View
         $menu = $this->getPart('menu');
         $meta = $this->getPart('meta');
         $player = $this->getPart('player');
+        $formBuy = $this->getPart('formBuy');
+        $formModif = $this->getPart('formModif');
+
 
         ob_start();
         include($this->template);

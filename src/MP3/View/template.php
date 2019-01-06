@@ -28,6 +28,12 @@
 
 		<?php echo $content; ?>
 	</main>
+    <?php echo $formBuy; ?>
+    <?php echo $formModif; ?>
+
+
+
+
 </body>
 </html>
 

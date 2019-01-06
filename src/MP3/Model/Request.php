@@ -55,7 +55,7 @@ class Request
         return $this->server[$key];
     }
 
-    public function getPostParam($key, $default)
+    public function getPostParam($key, $default = null)
     {
         if (!isset($this->post[$key])) {
             return $default;

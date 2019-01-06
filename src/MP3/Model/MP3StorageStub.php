@@ -31,31 +31,31 @@ class MP3StorageStub implements MP3Storage {
             $mp3Metadata = $getID3->analyze('sons/'.$listPathMP3[$i]);
             if ( !key_exists("error",$mp3Metadata)){
 
-                if($mp3Metadata['tags']['id3v2']['title'][0] != null){
+                if( array_key_exists('title', $mp3Metadata['tags']['id3v2']) && $mp3Metadata['tags']['id3v2']['title'][0] != null){
                     $title = $mp3Metadata['tags']['id3v2']['title'][0];
                 }
-                if( $mp3Metadata['tags']['id3v2']['album'][0] != null){
+                if( array_key_exists('album', $mp3Metadata['tags']['id3v2']) && $mp3Metadata['tags']['id3v2']['album'][0] != null){
                     $album =  $mp3Metadata['tags']['id3v2']['album'][0];
                 }
-                if( $mp3Metadata['tags']['id3v2']['artist'][0] != null){
+                if(array_key_exists('artist', $mp3Metadata['tags']['id3v2']) && $mp3Metadata['tags']['id3v2']['artist'][0] != null){
                     $artist =  $mp3Metadata['tags']['id3v2']['artist'][0];
                 }
-                if( $mp3Metadata['playtime_string'] != null){
+                if( array_key_exists('playtime_string', $mp3Metadata) && $mp3Metadata['playtime_string'] != null){
                     $duree =  $mp3Metadata['playtime_string'];
                 }
-                if( $mp3Metadata['audio']['dataformat'] != null){
+                if( array_key_exists('dataformat',$mp3Metadata['audio']) && $mp3Metadata['audio']['dataformat'] != null){
                     $dataFormat =  $mp3Metadata['audio']['dataformat'];
                 }
-                if( $mp3Metadata['tags']['id3v2']['copyright_message'][0] != null){
+                if( array_key_exists('copyright_message', $mp3Metadata['tags']['id3v2']) && $mp3Metadata['tags']['id3v2']['copyright_message'][0] != null){
                     $copyright =  $mp3Metadata['tags']['id3v2']['copyright_message'][0];
                 }
-                if( $mp3Metadata['tags']['id3v2']['date'][0] != null){
+                if( array_key_exists('date', $mp3Metadata['tags']['id3v2']) && $mp3Metadata['tags']['id3v2']['date'][0] != null){
                     $date =  $mp3Metadata['tags']['id3v2']['date'][0];
                 }
-                if( $mp3Metadata['mime_type'] != null){
+                if( array_key_exists('mime_type', $mp3Metadata) && $mp3Metadata['mime_type'] != null){
                     $mimeType =  $mp3Metadata['mime_type'];
                 }
-                if( $mp3Metadata['audio']['channelmode'] != null){
+                if( array_key_exists('channelmode', $mp3Metadata['audio']) && $mp3Metadata['audio']['channelmode'] != null){
                     $channelMode =  $mp3Metadata['audio']['channelmode'];
                 }
                 array_push($this->db,
@@ -66,10 +66,10 @@ class MP3StorageStub implements MP3Storage {
                 $cpt++;
             }
         }
-        //$mp3MetadataTest = $getID3->analyze('sons/'.$listPathMP3[3]);
-        //var_dump($mp3MetadataTest['comments']['picture'][0]['data']);
+        //$mp3MetadataTest = $getID3->analyze("sons/melot_eklectik.mp3");
+        //var_dump($mp3MetadataTest['tags']);
         //$monfichier = fopen('/users/21306107/www-dev/devoir-idc2018/test.txt', 'a+');
-        //fputs($monfichier, $mp3MetadataTest['comments']['picture'][0]['data']);
+        //fputs($monfichier, $mp3MetadataTest);
         //var_dump($mp3MetadataTest);
         //var_dump($mp3MetadataTest['tags']['id3v2']['genre'][0]);
         //var_dump($mp3MetadataTest['audio']['dataformat']);
