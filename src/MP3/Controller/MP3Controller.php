@@ -15,6 +15,7 @@ class MP3Controller
     protected $response;
     protected $view;
     protected $authen;
+    protected $accessManager;
 
     public function __construct(Request $request, Response $response, View $view,
                                 AuthentificationAdapterInterface $authent)
@@ -94,7 +95,7 @@ class MP3Controller
             $content .= "</div>\n";
             $content .= "<form action='?o=paiement&amp;a=requete' method='POST'>";
             $content .= "<input type='hidden' name='prix' value='500'>";
-            $content .= "<input type='email' id='email' pattern='.+@.+' size='30' required>";
+            $content .= "<input type='email' name='email' pattern='.+@.+' size='30' required>";
             $content .= "<input type='submit' value='Acheter'>";
             $content .= "</form>";
 
