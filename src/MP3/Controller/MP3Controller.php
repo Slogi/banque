@@ -15,6 +15,7 @@ class MP3Controller
     protected $response;
     protected $view;
     protected $authen;
+    protected $accessManager;
 
     public function __construct(Request $request, Response $response, View $view,
                                 AuthentificationAdapterInterface $authent)

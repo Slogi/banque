@@ -4,6 +4,7 @@ namespace PaiementCB\Controller;
 use MP3\Model\Request;
 use MP3\Model\Response;
 use MP3\View\View;
+use PaiementCB\Model\Mailer;
 use PaiementCB\Model\ReponseBancaire;
 use PaiementCB\Model\RequeteBancaire;
 use MP3\Model\AuthentificationAdapterInterface;
@@ -15,7 +16,7 @@ class PaiementController
     protected $response;
     protected $view;
     protected $authen;
-
+    protected $codeDl;
 
     public function __construct(Request $request, Response $response, View $view, AuthentificationAdapterInterface $authent)
     {
@@ -48,26 +49,33 @@ class PaiementController
         $this->view->setPart('content', $content);
     }
 
-    public function cancel(){
+    public function reponseAccepte (){
+        if ( $this->request->getPostParam('DATA', '')){
+            $reponse = new ReponseBancaire($this->request->getPostParam('DATA', ''));
+            $tableau = $reponse->analyseRequete($this->request->getPostParam('DATA', ''));
+            $result = $reponse->paiementAccepte($tableau);
+            $this->view->setPart('content', "<a href='?o=paiement&amp;a=envoieMail'>ENVOIE MAIL</a>");
 
-        if ( $this->request->getPostParam('DATA', '') != null ){
-            $reponse = new ReponseBancaire($_POST['DATA']);
-            $tableau = $reponse->cancel();
-            var_dump($tableau);
-            $content = "Votre paiement de " . $tableau[5] . " a été refusé";
-            $this->view->setPart('content', $content);
         }
+    }
+
+    public function reponseRefus (){
+        if ( $this->request->getPostParam('DATA', '')) {
+            $reponse = new ReponseBancaire($this->request->getPostParam('DATA', ''));
+            $tableau = $reponse->analyseRequete($this->request->getPostParam('DATA', ''));
+            $result = $reponse->paiementRefuse($tableau);
+            $this->view->setPart('content', print_r($result));
+        }
+    }
+
+    public function envoieMail(){
+        $mailer = new Mailer();
+        echo $mailer->send_mail();
 
     }
 
-    public function confirmation(){
-        if ( $this->request->getPostParam('DATA', '') != null ){
-            $reponse = new ReponseBancaire($_POST['DATA']);
-            $tableau = $reponse->confirmation();
-            var_dump($tableau);
-            $content = "Votre paiement de " . $tableau[5] . " a été accepté";
-            $this->view->setPart('content', $content);
-        }
+    public function download(){
+
     }
 
 

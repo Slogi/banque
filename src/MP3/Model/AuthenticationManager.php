@@ -20,13 +20,6 @@ class AuthenticationManager implements AuthentificationAdapterInterface
             'prenom' => 'Alexandre',
             'mdp' => 'toto',
             'statut' => 'admin'
-        ),
-        'julia' => array(
-            'id' => 12,
-            'nom' => 'Dupont',
-            'prenom' => 'Julia',
-            'mdp' => 'toto',
-            'statut' => 'redacteur'
         )
     );
 
