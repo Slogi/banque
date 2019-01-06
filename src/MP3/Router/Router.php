@@ -45,10 +45,12 @@ class Router
         if (!class_exists($this->controllerClassName)) {
             throw new \Exception("Classe {$this->controllerClassName} non existante");
         }
-
-        // regarder si une action est demandée dans l'URL
-        // si le paramètre 'a' n'existe pas alors l'action sera 'defaultAction'
         $this->controllerAction = $this->request->getGetParam('a', 'makeHomePage');
+
+        if (!method_exists($this->controllerClassName, $this->request->getGetParam('a')) && $this->request->getGetParam('a') != ''){
+            $this->controllerAction ="erreur";
+        }
+
     }
 
 }

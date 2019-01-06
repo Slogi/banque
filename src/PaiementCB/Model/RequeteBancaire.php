@@ -43,8 +43,7 @@ class RequeteBancaire
         }
         else if ($code != 0)
         {
-            $txtReponse="<center><b><h2>Erreur appel API de paiement.</h2></center></b><br><br><br> message erreur : "
-                .$error." <br>";
+            $txtReponse="<b><h2>Erreur appel API de paiement.</h2></b> message erreur : " .$error." <br>";
         }
         else
         {

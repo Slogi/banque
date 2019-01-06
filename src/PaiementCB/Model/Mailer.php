@@ -12,13 +12,14 @@ class Mailer
     private $host;
     private $username;
     private $password;
+    private $lien;
 
-
-    public function __construct()
+    public function __construct($lien)
     {
         $this->host = 'smtp.gmail.com';
         $this->username = 'smtp2140618421306107@gmail.com';
         $this->password = '1aez45gf865';
+        $this->lien = $lien;
     }
 
     public function send_mail(){
@@ -30,20 +31,16 @@ class Mailer
 
         $mailer = new Swift_Mailer($transport);
 
-        $message = (new Swift_Message('Wonderful Subject'))
+        $message = (new Swift_Message('Achat de mp3'))
             ->setFrom($this->username)
             ->setTo('slogi@live.com')
-            ->setBody('Here is the message itself');
-
-        var_dump($mailer);
+            ->setBody('Lien de téléchargement du fichier mp3'.$this->lien);
 
         try {
-            $result = $mailer->send($message);
+           echo $result = $mailer->send($message);
         }catch( \Swift_TransportException $e ){
             echo $e->getMessage();
         }
-
-        return $result;
     }
 
 }

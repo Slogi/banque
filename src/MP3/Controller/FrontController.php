@@ -42,19 +42,36 @@ class FrontController
 
                         $content .="<div>Connexion impossible</div><br/>";
                         $content .= $authent->getForm();
-
+                        $menu = array(
+                            "Accueil" => '?o=mp3&amp;a=makeHomePage'
+                        );
+                        $view->setPart('menu', $menu);
                     }
                     else {
                         $content .="<div>Bonjour ". $this->request->getSession('nom')."</div>";
                         $content .="<a href='?o=mp3&amp;a=logout'>Deconnexion</a>";
+                        $menu = array(
+                            "Accueil" => '?o=mp3&amp;a=makeHomePage',
+                            "Consulter les logs" => '?o=paiement&amp;a=consulterLogs'
+                        );
+                        $view->setPart('menu', $menu);
                     }
                 }else {
                     $content .= $authent->getForm();
+                    $menu = array(
+                        "Accueil" => '?o=mp3&amp;a=makeHomePage'
+                    );
+                    $view->setPart('menu', $menu);
                 }
             }
             else {
                 $content .="<div>Bonjour ". $this->request->getSession('nom')."</div>";
                 $content .="<a href='?o=mp3&amp;a=logout'>Deconnexion</a>";
+                $menu = array(
+                    "Accueil" => '?o=mp3&amp;a=makeHomePage',
+                    "Consulter les logs" => '?o=paiement&amp;a=consulterLogs'
+                );
+                $view->setPart('menu', $menu);
             }
             $view->setPart('form', $content);
         } catch(Exception $e){

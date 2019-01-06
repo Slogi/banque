@@ -134,7 +134,6 @@ class ReponseBancaire
 
         $fp = fopen($this::PATH_LOG_REFUSE, "a");
 
-        fwrite($fp, "ACHAT ANNULE\n");
         fwrite($fp, "merchant_id : $merchant_id\n");
         fwrite($fp, "merchant_country : $merchant_country\n");
         fwrite($fp, "amount : $amount\n");

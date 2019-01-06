@@ -38,19 +38,6 @@ class MP3Controller
         $this->$action();
     }
 
-    public function toto() {
-        $title = "Bienvenue !";
-        $content = "Un site sur des poèmes.";
-        $this->view->setPart('title', $title);
-        $this->view->setPart('content', $content);
-
-    }
-
-    public function defaultAction()
-    {
-
-    }
-
     public function show() {
         // tester les en-têtes HTTP avec Response
         $this->response->addHeader('X-Debugging: show me a poem');
@@ -96,17 +83,18 @@ class MP3Controller
             $formBuy = "<form class='formBuy' action='?o=paiement&amp;a=requete' method='POST'>";
             $formBuy .= "<input type='hidden' name='prix' value='500'>";
             $formBuy .= "<input type='email' id='email' pattern='.+@.+' size='30' required placeholder='Votre addresse e-mail'>";
+            $formBuy .= "<input type='hidden' name='id' value='{$mp3->getPath()}'>";
             $formBuy .= "<input type='submit' value='Acheter'>";
             $formBuy .= "</form>";
 
-            // CONNEXION
-            $formModif = "<form class='formModif' action='?o=mp3&amp;a=traitement&id={$mp3->getId()}' method='POST'>";
-            $formModif .= "<label>Titre</label><input type='text'  name='titre' size='80' value='{$mp3->getTitle()}'/><br />";
-            $formModif .= "<label>Artiste</label><input type='text'  name='artiste' size='20' value='{$mp3->getArtist()}'/><br />";
-            $formModif .= "<label>Album</label><input type='text'  name='album' size='80' value='{$mp3->getAlbum()}'/><br />";
-            $formModif .= "<label>Copyright</label><input type='text'  name='copyright' size='20' value='{$mp3->getCopyright()}'/><br />";
-            $formModif .= "<input type='submit' value='Modifier'/>";
-            // CONNEXION
+            if ($this->request->getSession('statut') =='admin' ){
+                $formModif = "<form class='formModif' action='?o=mp3&amp;a=traitement&id={$mp3->getId()}' method='POST'>";
+                $formModif .= "<label>Titre</label><input type='text'  name='titre' size='80' value='{$mp3->getTitle()}'/><br />";
+                $formModif .= "<label>Artiste</label><input type='text'  name='artiste' size='20' value='{$mp3->getArtist()}'/><br />";
+                $formModif .= "<label>Album</label><input type='text'  name='album' size='80' value='{$mp3->getAlbum()}'/><br />";
+                $formModif .= "<label>Copyright</label><input type='text'  name='copyright' size='20' value='{$mp3->getCopyright()}'/><br />";
+                $formModif .= "<input type='submit' value='Modifier'/>";
+            }
 
             $this->view->setPart('title', $title);
             $this->view->setPart('content', $content);
@@ -114,10 +102,9 @@ class MP3Controller
             $this->view->setPart('player', $player);
             $this->view->setPart('formBuy', $formBuy);
 
-            // CONNEXION
-            $this->view->setPart('formModif', $formModif);
-            // CONNEXION
-
+            if ($this->request->getSession('statut') =='admin' ) {
+                $this->view->setPart('formModif', $formModif);
+            }
         } else {
             $this->unknownPoem();
         }
@@ -125,15 +112,23 @@ class MP3Controller
 
     public function logout(){
         $this->authen->disconnect();
-        header('Location: ?o=mp3&a=makeHomePage');//TODO essayer de se servir de response addHeaders()
+        $this->response->addHeader('Location: ?o=mp3&a=makeHomePage');//TODO essayer de se servir de response addHeaders()
 
     }
 
-    public function unknownPoem() {
-        $title = "Poème inconnu ou non trouvé";
-        $content = "Choisir un poème dans la liste.";
+    public function unknownMp3() {
+        $title = "Mp3 inconnu";
+        $content = "Choisir un mp3 dans la page d'accueil";
         $this->view->setPart('title', $title);
         $this->view->setPart('content', $content);
+    }
+
+    public function erreur(){
+        $title = "Page Inconnu - 404 erreur";
+        $content = "La page que vous avez demandé n'existe pas.";
+        $this->view->setPart('title', $title);
+        $this->view->setPart('content', $content);
+
     }
 
     public function makeHomePage() {
@@ -144,12 +139,12 @@ class MP3Controller
         $content .= "<ul>";
         foreach( $mp3list as $key => $value){
             $content .= "<li>";
-            $content .=  "<a href='?o=mp3&amp;a=show&amp;id=". $value->getId() ."'>".$value->getTitle()."  </a>";
-            // CONNEXION
-            $content .= "<form action='?o=mp3&amp;a=supprimer&id={$value->getId()}' method='POST'>";
-            $content .= "<input type='submit' id='suppr{$value->getId()}' name='suppr' value='Supprimer'>";
-            $content .= "</form>";
-            // CONNEXION
+            $content .=  "<a href='?o=mp3&amp;a=show&amp;id={$value->getId()}'>{$value->getTitle()} </a>";
+            if ($this->request->getSession('statut') =='admin' ) {
+                $content .= "<form action='?o=mp3&amp;a=supprimer&id={$value->getId()}' method='POST'>";
+                $content .= "<input type='submit' id='suppr{$value->getId()}' name='suppr' value='Supprimer'>";
+                $content .= "</form>";
+            }
             $content .= "</li>";
         }
         $content .= "</ul>";
@@ -158,54 +153,60 @@ class MP3Controller
     }
 
     public function traitement(){
-        if($this->request->getPostParam('titre') != null){
-            $id = $this->request->getGetParam('id');
-            $mp3Storage = new MP3StorageStub();
-            $mp3 = $mp3Storage->read($id);
-            $path = $mp3->getPath();
-            //echo("path : ".$path);
+        if ($this->request->getSession('statut') =='admin' ) {
 
-            $title = $this->request->getPostParam('titre');
-            $artist = $this->request->getPostParam('artiste');
-            $album = $this->request->getPostParam('album');
-            $copyright = $this->request->getPostParam('copyright');
+            if($this->request->getPostParam('titre') != null){
+                $id = $this->request->getGetParam('id');
+                $mp3Storage = new MP3StorageStub();
+                $mp3 = $mp3Storage->read($id);
+                $path = $mp3->getPath();
+                //echo("path : ".$path);
 
-
-            exec("ffmpeg -i ".$path." -c copy -metadata title='".$title."'  sons/test.mp3" );
-            unlink($path);
-            rename( 'sons/test.mp3', $path);
-
-            exec("ffmpeg -i ".$path." -c copy -metadata artist='".$artist."'  sons/test.mp3" );
-            unlink($path);
-            rename( 'sons/test.mp3', $path);
-
-            exec("ffmpeg -i ".$path." -c copy -metadata album='".$album."'  sons/test.mp3" );
-            unlink($path);
-            rename( 'sons/test.mp3', $path);
-
-            exec("ffmpeg -i ".$path." -c copy -metadata copyright='".$copyright."'  sons/test.mp3" );
-            unlink($path);
-            rename( 'sons/test.mp3', $path);
+                $title = $this->request->getPostParam('titre');
+                $artist = $this->request->getPostParam('artiste');
+                $album = $this->request->getPostParam('album');
+                $copyright = $this->request->getPostParam('copyright');
 
 
+                exec("ffmpeg -i ".$path." -c copy -metadata title='".$title."'  sons/test.mp3" );
+                unlink($path);
+                rename( 'sons/test.mp3', $path);
 
+                exec("ffmpeg -i ".$path." -c copy -metadata artist='".$artist."'  sons/test.mp3" );
+                unlink($path);
+                rename( 'sons/test.mp3', $path);
 
-            //echo("ffmpeg -i ".$path." -metadata title='".$title."' ".$path);
-            //header('Location: ?o=mp3&a=show&id='.$id);
-            //TODO REDIRECTION
-            $mp3Storage = new MP3StorageStub();
-            $mp3 = $mp3Storage->read($id);
+                exec("ffmpeg -i ".$path." -c copy -metadata album='".$album."'  sons/test.mp3" );
+                unlink($path);
+                rename( 'sons/test.mp3', $path);
+
+                exec("ffmpeg -i ".$path." -c copy -metadata copyright='".$copyright."'  sons/test.mp3" );
+                unlink($path);
+                rename( 'sons/test.mp3', $path);
+
+                $this->response->addHeader("Location: ?o=mp3&a=show&id=".$id);
+            }
+        }else {
+            $this->response->addHeader("Location: ?o=mp3&a=makeHomePage");
         }
+
     }
 
     public function supprimer(){
-        if($this->request->getPostParam('suppr') != null){
-            $id = $this->request->getGetParam('id');
-            $mp3Storage = new MP3StorageStub();
-            $mp3 = $mp3Storage->read($id);
-            $path = $mp3->getPath();
-            unlink($path);
-            //TODO REDIRECTION
+        if ($this->request->getSession('statut') =='admin' ) {
+
+            if ($this->request->getPostParam('suppr') != null) {
+                $id = $this->request->getGetParam('id');
+                $mp3Storage = new MP3StorageStub();
+                $mp3 = $mp3Storage->read($id);
+                $path = $mp3->getPath();
+                unlink($path);
+                $this->response->addHeader("Location: ?o=mp3&a=makeHomePage");
+            } else {
+                $this->response->addHeader("Location: ?o=mp3&a=makeHomePage");
+            }
+        } else {
+            $this->response->addHeader("Location: ?o=mp3&a=makeHomePage");
         }
     }
 
