@@ -84,7 +84,7 @@ class MP3Controller
             $formBuy .= "<input type='hidden' name='prix' value='500'>";
             $formBuy .= "<input type='email' id='email' pattern='.+@.+' size='30' required placeholder='Votre addresse e-mail'>";
             $formBuy .= "<input type='hidden' name='id' value='{$mp3->getPath()}'>";
-            $formBuy .= "<input type='submit' value='Acheter'>";
+            $formBuy .= "<input class='btnBuy' type='submit' value='Acheter'>";
             $formBuy .= "</form>";
 
             if ($this->request->getSession('statut') =='admin' ){
@@ -118,7 +118,7 @@ class MP3Controller
 
     public function unknownMp3() {
         $title = "Mp3 inconnu";
-        $content = "Choisir un mp3 dans la page d'accueil";
+        $content = "<div class='mp3'>Choisir un poème dans la liste.</div>";
         $this->view->setPart('title', $title);
         $this->view->setPart('content', $content);
     }

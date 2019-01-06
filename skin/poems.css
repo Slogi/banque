@@ -1,5 +1,6 @@
 html {
 	overflow-y: scroll;
+	font-family: Arial;
 }
 
 figure {
@@ -13,27 +14,72 @@ figure {
 }
 
 label {
-	display: block;
-	width: 120px;
-	float: left;
-
+	padding: 12px 12px 12px 0;
+	display: inline-block;
 }
+
+input[type=text], input[type=password], input[type=email] {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	resize: vertical;
+}
+
+.btnBuy, .btnModif, .btnId {
+	background-color: #4CAF50;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	width: 100%;
+}
+
+.btnSuppr{
+	background-color: #af3922;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+
+
 .menu ul li a {
 	font-size: 1.5em;
 }
 
 main ul li a {
 	font-size: 1.5em;
+	outline: none;
+	text-decoration: none;
+	display: inline-block;
+	margin-right: 0.625%;
+	text-align: center;
+	line-height: 3;
+	color: black;
+}
+
+main ul li a:link, main ul li a:visited, main ul li a:focus {
+	background: lightgrey;
+}
+
+main ul li a:hover {
+	background: #bdbdbd;
 }
 
 body {
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: 300px auto 100px 100px;
+	grid-template-rows: 300px auto 100px 300px;
 	grid-template-areas:  "header"
 							"main"
 						"formBuy"
 						"formModif";
+	background-color: lightgrey;
 }
 
 .menu {
@@ -48,6 +94,7 @@ body {
 .formId {
 	grid-area: identhif;
 	place-self: center;
+	font-size: 1.5em;
 }
 
 .menu ul {
@@ -71,7 +118,7 @@ main {
 main h1 {
 	grid-area: titre;
 	place-self: center;
-	font-size:1.6em;
+	font-size:1.2em;
 
 }
 
@@ -83,7 +130,7 @@ main .player {
 main .mp3 {
 	grid-area: meta;
 	place-self: center;
-	font-size:1.2em;
+	font-size:0.8em;
 
 }
 
@@ -104,7 +151,7 @@ main .mp3 {
 	body
 	{
 		grid-template-columns: 300px  auto 300px;
-		grid-template-rows: 100px  auto 300px;
+		grid-template-rows: 200px  auto 400px;
 		grid-template-areas:  "header header header"
 								"bodyGauche main bodyDroit"
 								"formModif formModif formModif"
@@ -114,7 +161,7 @@ main .mp3 {
 		grid-area: header;
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
-		grid-template-rows: 100px;
+		grid-template-rows: 1fr;
 		grid-template-areas:  "headerGauche liens identhif";
 	}
 
@@ -132,7 +179,7 @@ main .mp3 {
 
 	main h1 {
 
-		font-size:3em;
+		font-size:2.5em;
 	}
 
 	main .mp3 {
