@@ -38,9 +38,7 @@ class MP3Controller
         $this->$action();
     }
 
-    public function show()
-    {
-        // tester les en-têtes HTTP avec Response
+    public function show() {
         $this->response->addHeader('X-Debugging: show me a poem');
 
         $id = $this->request->getGetParam('id');
@@ -166,7 +164,6 @@ class MP3Controller
                 $mp3Storage = new MP3StorageStub();
                 $mp3 = $mp3Storage->read($id);
                 $path = $mp3->getPath();
-                //echo("path : ".$path);
 
                 $title = $this->request->getPostParam('titre');
                 $artist = $this->request->getPostParam('artiste');

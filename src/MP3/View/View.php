@@ -15,7 +15,6 @@ class View
 
     public function setPart($key, $content)
     {
-        //var_dump($content) ;
         $this->parts[$key] = $content;
     }
 
