@@ -47,7 +47,7 @@ input[type=text], input[type=password], input[type=email] {
 }
 
 .logs{
-    width : 100%;
+	grid-area: meta;
     padding : 20px;
     border: 2px solid dimgrey;
     margin-right: 10px;
@@ -68,8 +68,11 @@ input[type=text], input[type=password], input[type=email] {
     float: right;
     margin-right: 5px;
 }
-.menu ul li a {
+.menu ul li {
 	font-size: 1.5em;
+	display: inline;
+
+	
 }
 
 main ul li a {

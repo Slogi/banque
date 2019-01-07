@@ -17,7 +17,8 @@
 		<ul>
 <?php
 	foreach ($menu as $text => $link) {
-		echo "<li><a href=\"$link\">$text</a></li>";
+		echo "<li><a href=\"$link\">$text</a></li> ";
+
 	}
 ?>
 		</ul>
