@@ -3,9 +3,7 @@
 namespace MP3\Model;
 
 use getID3;
-/* Une classe de démo de l'architecture. Une vraie BD ne contiendrait
- * évidemment pas directement des instances de Poem, il faudrait
- * les construire lors de la lecture en BD. */
+
 class MP3StorageStub implements MP3Storage {
 
 	protected $db;
@@ -66,13 +64,6 @@ class MP3StorageStub implements MP3Storage {
                 $cpt++;
             }
         }
-        //$mp3MetadataTest = $getID3->analyze("sons/melot_eklectik.mp3");
-        //var_dump($mp3MetadataTest['tags']);
-        //$monfichier = fopen('/users/21306107/www-dev/devoir-idc2018/test.txt', 'a+');
-        //fputs($monfichier, $mp3MetadataTest);
-        //var_dump($mp3MetadataTest);
-        //var_dump($mp3MetadataTest['tags']['id3v2']['genre'][0]);
-        //var_dump($mp3MetadataTest['audio']['dataformat']);
 	}
 
 	public function readMP3(){

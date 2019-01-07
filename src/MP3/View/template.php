@@ -5,7 +5,7 @@
 	<title><?php echo $title ?></title>
 	<meta charset="UTF-8" />
     <?php echo $meta; ?>
-    <link rel="stylesheet" href="skin/poems.css" />
+    <link rel="stylesheet" href="skin/mp3.css" />
 
 
 

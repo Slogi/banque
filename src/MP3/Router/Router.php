@@ -41,7 +41,6 @@ class Router
                 $this->controllerClassName = 'MP3\Controller\MP3Controller';
         }
 
-        // tester si la classe à instancier existe bien. Si non lancer une Exception.
         if (!class_exists($this->controllerClassName)) {
             throw new \Exception("Classe {$this->controllerClassName} non existante");
         }
