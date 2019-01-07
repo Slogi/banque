@@ -210,4 +210,16 @@ class MP3Controller
         }
     }
 
+    public function binome(){
+        $title = "Bouhouch Julien et Quatrevaux Solène";
+        $content = "<div class='mp3'>";
+        $content .= "Login Jean-Marc : <br/>";
+        $content .= "Mot de passe Jean-Marc : <br/>";
+        $content .= "Login Alexandre : <br/>";
+        $content .= "Mot de passe Alexandre : <br/>";
+        $content .= "</div>";
+        $this->view->setPart('title', $title);
+        $this->view->setPart('content', $content);
+    }
+
 }

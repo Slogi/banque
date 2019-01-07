@@ -72,7 +72,7 @@ input[type=text], input[type=password], input[type=email] {
 	font-size: 1.5em;
 	display: inline;
 
-	
+
 }
 
 main ul li a {
@@ -153,7 +153,7 @@ main .player {
 main .mp3 {
 	grid-area: meta;
 	place-self: center;
-	font-size:0.8em;
+	font-size:1em;
 
 }
 
@@ -174,7 +174,7 @@ main .mp3 {
 	body
 	{
 		grid-template-columns: 300px  auto 300px;
-		grid-template-rows: 200px  auto 400px;
+		grid-template-rows: 300px  auto 400px;
 		grid-template-areas:  "header header header"
 								"bodyGauche main bodyDroit"
 								"formModif formModif formModif"
