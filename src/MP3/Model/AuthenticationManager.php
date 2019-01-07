@@ -30,6 +30,7 @@ class AuthenticationManager implements AuthentificationAdapterInterface
     private $statut;
     private $request;
     private $form;
+    private $response;
 
     public function __construct(Request $request)
     {
@@ -67,7 +68,6 @@ class AuthenticationManager implements AuthentificationAdapterInterface
                     $this->request->setSession('nom', $value['nom']);
                     $this->request->setSession('prenom', $value['prenom']);
                     $this->request->setSession('statut', $value['statut']);
-                    return true;
                }
             }
         }

@@ -93,7 +93,7 @@ class MP3Controller
                 $formModif .= "<label>Artiste</label><input type='text'  name='artiste' size='20' value='{$mp3->getArtist()}'/><br />";
                 $formModif .= "<label>Album</label><input type='text'  name='album' size='80' value='{$mp3->getAlbum()}'/><br />";
                 $formModif .= "<label>Copyright</label><input type='text'  name='copyright' size='20' value='{$mp3->getCopyright()}'/><br />";
-                $formModif .= "<input type='submit' value='Modifier'/>";
+                $formModif .= "<input class='btnModif' type='submit' value='Modifier'/>";
             }
 
             $this->view->setPart('title', $title);
@@ -142,7 +142,7 @@ class MP3Controller
             $content .=  "<a href='?o=mp3&amp;a=show&amp;id={$value->getId()}'>{$value->getTitle()} </a>";
             if ($this->request->getSession('statut') =='admin' ) {
                 $content .= "<form action='?o=mp3&amp;a=supprimer&id={$value->getId()}' method='POST'>";
-                $content .= "<input type='submit' id='suppr{$value->getId()}' name='suppr' value='Supprimer'>";
+                $content .= "<input class='btnSuppr' type='submit' id='suppr{$value->getId()}' name='suppr' value='Supprimer'>";
                 $content .= "</form>";
             }
             $content .= "</li>";

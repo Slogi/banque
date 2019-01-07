@@ -52,6 +52,7 @@ class PaiementController
             $reponse = new ReponseBancaire($this->request->getPostParam('DATA', ''));
             $tableau = $reponse->analyseRequete($this->request->getPostParam('DATA', ''));
             $result = $reponse->paiementAccepte($tableau);
+
             /*$codeDl = rand(10, 5000);
             $mailer = new Mailer("https://dev-21406184.users.info.unicaen.fr/devoir-idc2018/?o=paiement&a=download&code=".$codeDl);
             $mailer->send_mail();*/
@@ -80,6 +81,7 @@ class PaiementController
         $file = fopen(ReponseBancaire::PATH_LOG_ACCEPTE, "r");
         $content ="<div class='logs'>";
         $content .= "<div class='logsAccept'>";
+        $content .= "<h3>Logs des paiements Acceptés</h3>";
         while(!feof($file))
         {
             $content .= "<p>".fgets($file). "</p>";
@@ -88,7 +90,8 @@ class PaiementController
         $content .= "</div>";
 
         $file = fopen(ReponseBancaire::PATH_LOG_REFUSE, "r");
-        $content .= "<div>";
+        $content .= "<div class='logsRefuse'>";
+        $content .= "<h3>Logs des paiements refusés</h3>";
         while(!feof($file))
         {
             $content .= "<p>".fgets($file). "</p>";

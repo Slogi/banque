@@ -46,8 +46,28 @@ input[type=text], input[type=password], input[type=email] {
 	cursor: pointer;
 }
 
+.logs{
+    width : 100%;
+    padding : 20px;
+    border: 2px solid dimgrey;
+    margin-right: 10px;
+    float: left;
+}
 
-
+.logsAccept{
+    overflow-y: scroll;
+    width: 45%;
+    height: 500px;
+    float: left;
+    margin-left: 5px;
+}
+.logsRefuse{
+    overflow-y: scroll;
+    width: 45%;
+    height: 500px;
+    float: right;
+    margin-right: 5px;
+}
 .menu ul li a {
 	font-size: 1.5em;
 }
