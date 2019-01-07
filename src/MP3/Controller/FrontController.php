@@ -56,6 +56,7 @@ class FrontController
                         $content .= "</div>";
                         $menu = array(
                             "Accueil" => '?o=mp3&amp;a=makeHomePage',
+                            "Binome" => '?o=mp3&amp;a=binome',
                             "Consulter les logs" => '?o=paiement&amp;a=consulterLogs'
                         );
                         $view->setPart('menu', $menu);
@@ -65,7 +66,8 @@ class FrontController
                     $content .= $authent->getForm();
                     $content .= "</div>";
                     $menu = array(
-                        "Accueil" => '?o=mp3&amp;a=makeHomePage'
+                        "Accueil" => '?o=mp3&amp;a=makeHomePage',
+                        "Binome" => '?o=mp3&amp;a=binome'
                     );
                     $view->setPart('menu', $menu);
                 }
@@ -77,6 +79,7 @@ class FrontController
                 $content .= "</div>";
                 $menu = array(
                     "Accueil" => '?o=mp3&amp;a=makeHomePage',
+                    "Binome" => '?o=mp3&amp;a=binome',
                     "Consulter les logs" => '?o=paiement&amp;a=consulterLogs'
                 );
                 $view->setPart('menu', $menu);
