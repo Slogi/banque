@@ -61,7 +61,9 @@ class FrontController
                         $view->setPart('menu', $menu);
                     }
                 }else {
+                    $content .= "<div class='formId'>";
                     $content .= $authent->getForm();
+                    $content .= "</div>";
                     $menu = array(
                         "Accueil" => '?o=mp3&amp;a=makeHomePage'
                     );

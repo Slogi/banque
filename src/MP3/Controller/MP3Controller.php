@@ -83,7 +83,7 @@ class MP3Controller
             $formBuy = "<form class='formBuy' action='?o=paiement&amp;a=requete' method='POST'>";
             $formBuy .= "<input type='hidden' name='prix' value='500'>";
             $formBuy .= "<input type='email' id='email' pattern='.+@.+' size='30' required placeholder='Votre addresse e-mail'>";
-            $formBuy .= "<input type='hidden' name='id' value='{$mp3->getPath()}'>";
+            $formBuy .= "<input type='hidden' name='fileName' value='{$mp3->getPath()}'>";
             $formBuy .= "<input class='btnBuy' type='submit' value='Acheter'>";
             $formBuy .= "</form>";
 

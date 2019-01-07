@@ -9,7 +9,7 @@ class RequeteBancaire
 
     const PATH_FILE = "src/PaiementCB/Sherlocks/param_demo/pathfile";
 
-    public function __construct($prix, $emailCommande)
+    public function __construct($prix, $emailCommande, $namefile)
     {
         chmod("src/PaiementCB/Sherlocks/bin/static/response", 0755);
         chmod("src/PaiementCB/Sherlocks/param_demo/pathfile", 0755);
@@ -23,8 +23,6 @@ class RequeteBancaire
         $this->request = "$this->request amount=" . $prix;
 
         $this->request = "$this->request pathfile=".$this::PATH_FILE;
-
-        $this->request .= " customer_email=" . $emailCommande;
 
         $this->request .= " order_id=" . $idCommande;
     }

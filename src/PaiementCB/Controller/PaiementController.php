@@ -39,9 +39,9 @@ class PaiementController
 
         $prix = $this->request->getPostParam('prix', '');
         $email = $this->request->getPostParam('email', '');
-        $this->id = $this->request->getPostParam('id','');
+        $nameFile = $this->request->getPostParam('nameFile', '');
 
-        $requete = new RequeteBancaire($prix, $email);
+        $requete = new RequeteBancaire($prix, $email, $nameFile);
 
         $content = $requete->execute();
         $this->view->setPart('content', $content);
@@ -52,11 +52,14 @@ class PaiementController
             $reponse = new ReponseBancaire($this->request->getPostParam('DATA', ''));
             $tableau = $reponse->analyseRequete($this->request->getPostParam('DATA', ''));
             $result = $reponse->paiementAccepte($tableau);
-
-            /*$codeDl = rand(10, 5000);
-            $mailer = new Mailer("https://dev-21406184.users.info.unicaen.fr/devoir-idc2018/?o=paiement&a=download&code=".$codeDl);
-            $mailer->send_mail();*/
-
+            /*$this->response->addHeader('Content-type: audio/mpeg');
+            $this->response->addHeader('Content-Disposition: attachment; filename="'.$result[28].'.mp3');
+            readfile("sons/".$result[28].".mp3");
+            exit();*/
+            $titre = "<h1>Paiement Accepté</h1>";
+            $content = "<p>Votre paiement n°".$result[6]." a été accepté, la connexion a smtp.gmail.com ne fonctionnant pas, le son n'est pas disponible.</p>";
+            $this->view->setPart('title', $titre);
+            $this->view->setPart('content', $content);
         } else {
             $this->response->addHeader("Location : ?o=mp3Controller&a=makeHomePage");
         }
@@ -67,7 +70,10 @@ class PaiementController
             $reponse = new ReponseBancaire($this->request->getPostParam('DATA', ''));
             $tableau = $reponse->analyseRequete($this->request->getPostParam('DATA', ''));
             $result = $reponse->paiementRefuse($tableau);
-            $this->view->setPart('content', print_r($result));
+            $titre = "<h1>Paiement Refusé</h1>";
+            $content = "<p>Votre paiement n°".$result[6]." n'a pas été accepté, veuillez vous référer à votre banque ou réessayer plus tard.</p>";
+            $this->view->setPart('title', $titre);
+            $this->view->setPart('content', $content);
         } else {
             $this->response->addHeader("Location : ?o=mp3Controller&a=makeHomePage");
         }
