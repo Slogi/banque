@@ -16,7 +16,8 @@ class ReponseBancaire
         $this->message = $message;
     }
 
-    public function analyseRequete($message){
+    public function analyseRequete($message)
+    {
         $param = " message=" . $message;
         $param .= " pathfile=" . $this::PATH_FILE;
         $res = exec($this::PATH_BIN . $param);
@@ -24,7 +25,8 @@ class ReponseBancaire
         return $tableau;
     }
 
-    public function paiementAccepte($tableau){
+    public function paiementAccepte($tableau)
+    {
 
         $code = $tableau[1];
         $error = $tableau[2];
@@ -97,7 +99,8 @@ class ReponseBancaire
 
     }
 
-    public function paiementRefuse($tableau){
+    public function paiementRefuse($tableau)
+    {
 
         $code = $tableau[1];
         $error = $tableau[2];

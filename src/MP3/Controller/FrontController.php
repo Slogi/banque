@@ -36,9 +36,9 @@ class FrontController
             $mdpAuthen = $this->request->getPostParam('mdp', '');
             $content ='';
 
-            if( $this->request->getSession('login') == ''){
-                if ( $idAuthen != '' && $mdpAuthen != ''){
-                    if ( !$authent->verifyAuth( $idAuthen, $mdpAuthen) ){
+            if($this->request->getSession('login') == '') {
+                if ($idAuthen != '' && $mdpAuthen != '') {
+                    if (!$authent->verifyAuth($idAuthen, $mdpAuthen) ) {
                         $content .= "<div class='formId'>";
                         $content .="<div>Connexion impossible</div><br/>";
                         $content .= $authent->getForm();

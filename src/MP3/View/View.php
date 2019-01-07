@@ -41,7 +41,7 @@ class View
 
 
         ob_start();
-        include($this->template);
+        include $this->template;
         $data = ob_get_contents();
         ob_end_clean();
 

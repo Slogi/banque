@@ -22,7 +22,8 @@ class Mailer
         $this->lien = $lien;
     }
 
-    public function send_mail(){
+    public function send_mail()
+    {
 
         $transport = (new Swift_SmtpTransport($this->host, 587, 'tls'))
             ->setUsername($this->username)
@@ -37,7 +38,7 @@ class Mailer
             ->setBody('Lien de téléchargement du fichier mp3'.$this->lien);
 
         try {
-           echo $result = $mailer->send($message);
+            echo $result = $mailer->send($message);
         }catch( \Swift_TransportException $e ){
             echo $e->getMessage();
         }

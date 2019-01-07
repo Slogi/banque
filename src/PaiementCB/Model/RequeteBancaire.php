@@ -27,20 +27,19 @@ class RequeteBancaire
         $this->request .= " order_id=" . $idCommande;
     }
 
-    public function execute(){
+    public function execute()
+    {
 
         $result=exec($this::PATH_BIN." $this->request");
-        $tableau = explode ("!", $result);
+        $tableau = explode("!", $result);
         $code = $tableau[1];
         $error = $tableau[2];
         $message = $tableau[3];
 
-        if (( $code == "" )&&( $error == "" ) )
-        {
+        if (( $code == "" )&&( $error == "" ) ) {
             $txtReponse="executable request non trouve ".$this::PATH_BIN;
         }
-        else if ($code != 0)
-        {
+        else if ($code != 0) {
             $txtReponse="<b><h2>Erreur appel API de paiement.</h2></b> message erreur : " .$error." <br>";
         }
         else

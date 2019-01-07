@@ -18,8 +18,8 @@ class MP3Controller
     protected $accessManager;
 
     public function __construct(Request $request, Response $response, View $view,
-                                AuthentificationAdapterInterface $authent)
-    {
+        AuthentificationAdapterInterface $authent
+    ) {
         $this->request = $request;
         $this->response = $response;
         $this->view = $view;
@@ -38,7 +38,8 @@ class MP3Controller
         $this->$action();
     }
 
-    public function show() {
+    public function show()
+    {
         // tester les en-têtes HTTP avec Response
         $this->response->addHeader('X-Debugging: show me a poem');
 
@@ -87,7 +88,7 @@ class MP3Controller
             $formBuy .= "<input class='btnBuy' type='submit' value='Acheter'>";
             $formBuy .= "</form>";
 
-            if ($this->request->getSession('statut') =='admin' ){
+            if ($this->request->getSession('statut') =='admin' ) {
                 $formModif = "<form class='formModif' action='?o=mp3&amp;a=traitement&id={$mp3->getId()}' method='POST'>";
                 $formModif .= "<label>Titre</label><input type='text'  name='titre' size='80' value='{$mp3->getTitle()}'/><br />";
                 $formModif .= "<label>Artiste</label><input type='text'  name='artiste' size='20' value='{$mp3->getArtist()}'/><br />";
@@ -110,20 +111,23 @@ class MP3Controller
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         $this->authen->disconnect();
         $this->response->addHeader('Location: ?o=mp3&a=makeHomePage');//TODO essayer de se servir de response addHeaders()
 
     }
 
-    public function unknownMp3() {
+    public function unknownMp3()
+    {
         $title = "Mp3 inconnu";
         $content = "<div class='mp3'>Choisir un poème dans la liste.</div>";
         $this->view->setPart('title', $title);
         $this->view->setPart('content', $content);
     }
 
-    public function erreur(){
+    public function erreur()
+    {
         $title = "Page Inconnu - 404 erreur";
         $content = "La page que vous avez demandé n'existe pas.";
         $this->view->setPart('title', $title);
@@ -131,7 +135,8 @@ class MP3Controller
 
     }
 
-    public function makeHomePage() {
+    public function makeHomePage()
+    {
         $mp3Storage = new MP3StorageStub();
         $mp3list = $mp3Storage->readAll();
 
@@ -152,10 +157,11 @@ class MP3Controller
         $this->view->setPart('content', $content);
     }
 
-    public function traitement(){
+    public function traitement()
+    {
         if ($this->request->getSession('statut') =='admin' ) {
 
-            if($this->request->getPostParam('titre') != null){
+            if($this->request->getPostParam('titre') != null) {
                 $id = $this->request->getGetParam('id');
                 $mp3Storage = new MP3StorageStub();
                 $mp3 = $mp3Storage->read($id);
@@ -168,21 +174,21 @@ class MP3Controller
                 $copyright = $this->request->getPostParam('copyright');
 
 
-                exec("ffmpeg -i ".$path." -c copy -metadata title='".$title."'  sons/test.mp3" );
+                exec("ffmpeg -i ".$path." -c copy -metadata title='".$title."'  sons/test.mp3");
                 unlink($path);
-                rename( 'sons/test.mp3', $path);
+                rename('sons/test.mp3', $path);
 
-                exec("ffmpeg -i ".$path." -c copy -metadata artist='".$artist."'  sons/test.mp3" );
+                exec("ffmpeg -i ".$path." -c copy -metadata artist='".$artist."'  sons/test.mp3");
                 unlink($path);
-                rename( 'sons/test.mp3', $path);
+                rename('sons/test.mp3', $path);
 
-                exec("ffmpeg -i ".$path." -c copy -metadata album='".$album."'  sons/test.mp3" );
+                exec("ffmpeg -i ".$path." -c copy -metadata album='".$album."'  sons/test.mp3");
                 unlink($path);
-                rename( 'sons/test.mp3', $path);
+                rename('sons/test.mp3', $path);
 
-                exec("ffmpeg -i ".$path." -c copy -metadata copyright='".$copyright."'  sons/test.mp3" );
+                exec("ffmpeg -i ".$path." -c copy -metadata copyright='".$copyright."'  sons/test.mp3");
                 unlink($path);
-                rename( 'sons/test.mp3', $path);
+                rename('sons/test.mp3', $path);
 
                 $this->response->addHeader("Location: ?o=mp3&a=show&id=".$id);
             }
@@ -192,7 +198,8 @@ class MP3Controller
 
     }
 
-    public function supprimer(){
+    public function supprimer()
+    {
         if ($this->request->getSession('statut') =='admin' ) {
 
             if ($this->request->getPostParam('suppr') != null) {
@@ -210,7 +217,8 @@ class MP3Controller
         }
     }
 
-    public function binome(){
+    public function binome()
+    {
         $title = "Bouhouch Julien et Quatrevaux Solène";
         $content = "<div class='mp3'>";
         $content .= "Login Jean-Marc : <br/>";

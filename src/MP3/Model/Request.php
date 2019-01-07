@@ -30,25 +30,29 @@ class Request
 
     public function getSession($key, $default = null)
     {
-        if( !key_exists($key, $this->session)){
+        if(!key_exists($key, $this->session)) {
             return $default;
         }
         return $this->session[$key];
     }
 
-    public function setSession($key, $value){
+    public function setSession($key, $value)
+    {
         $this->session[$key] = $value;
     }
 
-    public function __destruct(){
+    public function __destruct()
+    {
         $_SESSION = $this->session;
     }
 
-    public function setServer($key, $value){
+    public function setServer($key, $value)
+    {
         $this->server[$key] = $value;
     }
 
-    public function getServerParam( $key, $default){
+    public function getServerParam( $key, $default)
+    {
         if (!isset($this->server[$key])) {
             return $default;
         }

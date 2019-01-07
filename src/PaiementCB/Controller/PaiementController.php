@@ -35,7 +35,8 @@ class PaiementController
         $this->$action();
     }
 
-    public function requete(){
+    public function requete()
+    {
 
         $prix = $this->request->getPostParam('prix', '');
         $email = $this->request->getPostParam('email', '');
@@ -47,8 +48,9 @@ class PaiementController
         $this->view->setPart('content', $content);
     }
 
-    public function reponseAccepte (){
-        if ( $this->request->getPostParam('DATA', '')){
+    public function reponseAccepte()
+    {
+        if ($this->request->getPostParam('DATA', '')) {
             $reponse = new ReponseBancaire($this->request->getPostParam('DATA', ''));
             $tableau = $reponse->analyseRequete($this->request->getPostParam('DATA', ''));
             $result = $reponse->paiementAccepte($tableau);
@@ -65,8 +67,9 @@ class PaiementController
         }
     }
 
-    public function reponseRefus (){
-        if ( $this->request->getPostParam('DATA', '')) {
+    public function reponseRefus()
+    {
+        if ($this->request->getPostParam('DATA', '')) {
             $reponse = new ReponseBancaire($this->request->getPostParam('DATA', ''));
             $tableau = $reponse->analyseRequete($this->request->getPostParam('DATA', ''));
             $result = $reponse->paiementRefuse($tableau);
@@ -79,7 +82,8 @@ class PaiementController
         }
     }
 
-    public function consulterLogs(){
+    public function consulterLogs()
+    {
         $title = "Consultation des logs d'achat d'un mp3";
         $this->view->setPart('title', $title);
 
@@ -110,7 +114,8 @@ class PaiementController
 
     }
 
-    public function erreur(){
+    public function erreur()
+    {
         $title = "Page Inconnu - 404 erreur";
         $content = "La page que vous avez demandé n'existe pas.";
         $this->view->setPart('title', $title);

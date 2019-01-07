@@ -6,11 +6,13 @@ class Response
 {
     private $headers = array();
 
-    public function addHeader($headerValue) {
+    public function addHeader($headerValue)
+    {
         $this->headers[] = $headerValue;
     }
 
-    public function sendHeaders() {
+    public function sendHeaders()
+    {
         foreach ($this->headers as $header) {
             header($header);
         }

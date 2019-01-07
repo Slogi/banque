@@ -61,14 +61,14 @@ class AuthenticationManager implements AuthentificationAdapterInterface
     public function verifyAuth( $login, $mdp )
     {
         foreach ( $this->users as $key => $value ){
-            if ( $key == $login ){
-               if ( $value['mdp'] == $mdp ){
+            if ($key == $login ) {
+                if ($value['mdp'] == $mdp ) {
                     $this->request->setSession('login', $key);
                     $this->request->setSession('id', $value['id']);
                     $this->request->setSession('nom', $value['nom']);
                     $this->request->setSession('prenom', $value['prenom']);
                     $this->request->setSession('statut', $value['statut']);
-               }
+                }
             }
         }
         return false;
@@ -79,7 +79,8 @@ class AuthenticationManager implements AuthentificationAdapterInterface
         return $this->form;
     }
 
-    public function disconnect(){
+    public function disconnect()
+    {
         session_destroy();
     }
 

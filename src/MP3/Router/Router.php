@@ -31,14 +31,14 @@ class Router
         $package = $this->request->getGetParam('o');
 
         switch ($package) {
-            case 'mp3':
-                $this->controllerClassName = 'MP3\Controller\MP3Controller';
-                break;
-            case 'paiement':
-                $this->controllerClassName = 'PaiementCB\Controller\PaiementController';
-                break;
-            default:
-                $this->controllerClassName = 'MP3\Controller\MP3Controller';
+        case 'mp3':
+            $this->controllerClassName = 'MP3\Controller\MP3Controller';
+            break;
+        case 'paiement':
+            $this->controllerClassName = 'PaiementCB\Controller\PaiementController';
+            break;
+        default:
+            $this->controllerClassName = 'MP3\Controller\MP3Controller';
         }
 
         // tester si la classe à instancier existe bien. Si non lancer une Exception.
@@ -47,7 +47,7 @@ class Router
         }
         $this->controllerAction = $this->request->getGetParam('a', 'makeHomePage');
 
-        if (!method_exists($this->controllerClassName, $this->request->getGetParam('a')) && $this->request->getGetParam('a') != ''){
+        if (!method_exists($this->controllerClassName, $this->request->getGetParam('a')) && $this->request->getGetParam('a') != '') {
             $this->controllerAction ="erreur";
         }
 
